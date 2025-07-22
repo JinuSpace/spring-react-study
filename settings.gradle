@@ -1,0 +1,4 @@
+rootProject.name = 'spring-react-study'
+
+include 'backend'
+include 'frontend' // frontend 모듈 추가

@@ -1,0 +1,31 @@
+plugins {
+    id 'base' // Gradle 기본 기능 사용
+}
+
+task installDependencies(type: Exec) {
+    description = "Installs frontend dependencies using npm."
+    workingDir = file('.')
+    commandLine 'npm', 'install'
+}
+
+task buildFrontend(type: Exec) {
+    description = "Builds the frontend project using npm."
+    workingDir = file('.')
+    commandLine 'npm', 'run', 'build'
+}
+
+task cleanFrontend(type: Delete) {
+    description = "Cleans frontend build artifacts."
+    delete fileTree(dir: 'build')
+}
+
+// backend의 빌드와 연계 시 React 빌드 결과를 넘기는 작업 추가
+task moveBuildOutput(type: Copy) {
+    description = "Moves build output to backend's static folder."
+    dependsOn buildFrontend
+    from 'build'
+    into '../backend/src/main/resources/static'
+}
+
+tasks.build.dependsOn buildFrontend
+tasks.clean.dependsOn cleanFrontend
