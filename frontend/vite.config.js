@@ -1,13 +1,18 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-  },
-  build: {
-    outDir: 'build', // 빌드 출력은 이 폴더에 저장
+    proxy: {
+      "/api": {
+        target: "http://localhost:8080", // Spring Boot URL
+        changeOrigin: true,
+        secure: false, // HTTPS가 아니더라도 요청 허용
+
+      },
+    },
   },
 });

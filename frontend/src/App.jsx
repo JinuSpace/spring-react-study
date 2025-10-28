@@ -1,11 +1,18 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import ErrorPage from "./pages/ErrorPage";
 
-function App() {
+
+const App = () => {
     return (
-        <div>
-            <h1>Hello, React App!</h1>
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/error" element={<ErrorPage />} />
+            </Routes>
+        </Router>
     );
-}
+};
 
 export default App;
